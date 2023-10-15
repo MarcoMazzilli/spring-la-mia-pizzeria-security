@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: head}"></head>
+<body>
+	
+	<header th:replace="~{fragments/fragHeader :: header}"></header>
+	<div class="container">
+		<h1>Inserisci il nome dell ingrediente</h1>
+	<form
+		th:object="${newIngredient}" 
+		method="post">
+			<row class="d-flex">				
+				<div class="col wrapper-from-left p-3">
+				  		
+				  <div th:if="${#fields.hasErrors('name')}">
+				  	<ul>
+				  	   <li class="text-danger" th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+				  	</ul>
+				  </div>
+				  		
+				  <div class="mb-3">
+				    <label for="name" class="form-label">Nome dell'ingrediente</label>
+				    <input type="text" class="form-control" id="name" name="name" th:field="*{name}"  placeholder="Es. Pomodoro">
+				  </div>
+				  
+			</row>
+			
+			<div class="col my-3 py-3 r shadow">
+				<div class="my-3">
+				<h3>Seleziona le pizze a cui assegnare questo ingrediente</h3>
+				<h4 class="text-danger">NON FUNZIONA ANCORA !!!</h4>				
+				</div>
+				
+				<div
+				class="wrapper-checkbox p-2 shadow m-2"
+				style="display: inline-block; cursor: pointer;"
+				th:each="pizza : ${allPizze}"
+				th:object="${pizza}">		
+					 	
+					<input 
+						type="checkbox" 
+						th:id="${'ing' + pizza.id}"
+						th:value="*{id}"
+
+						>
+					<label th:for="${'ing' + pizza.id}">[[*{name}]]</label>
+					
+					
+				</div>
+				
+			</div>
+		  
+		  <button type="submit" class="btn btn-success">Crea pizza</button>
+		</form>
+
+	</div>
+</body>
+</html>

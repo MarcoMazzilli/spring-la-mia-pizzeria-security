@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head th:insert="~{fragments/head :: head}"></head>
+<body>
+	<header th:replace="~{fragments/fragHeader :: header}"></header>
+	<div class="container d-flex justify-content-center">
+		 <div class="card shadow p-3" style="width: 50%; min-height: 250px;">
+			 <h3>Crea un nuova offerta per la pizza</h3>
+			
+				<form 
+					method="POST"
+					th:object="${specialOffer}">
+					
+					<!--/* Hidden Pizza input */-->
+					<input type="text" name="pizza" th:field="*{pizza}" hidden>
+					<input type="text" name="id" th:field="*{id}" hidden>
+					
+					<!--/* Offer name */-->
+					<div th:if="${#fields.hasErrors('title')}">
+					  <ul>
+					  	  <li class="text-danger" th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+					  </ul>
+					</div>
+					
+					<div class="mb-3">
+				    	<label for="title" class="form-label">Nome dell'offerta</label>
+				    	<input type="text" class="form-control" id="title" name="title" th:field="*{title}" placeholder="max. 250 caratteri">
+				    </div>
+				    
+				    
+				    <div class="d-flex justify-content-evenly">
+						
+						<!--/* Offer Start date */-->
+						<div th:if="${#fields.hasErrors('startDate')}">
+					  		<ul>
+					  	   		<li class="text-danger" th:each="err : ${#fields.errors('startDate')}" th:text="${err}"></li>
+					  		</ul>
+					    </div>
+						<div class="mb-3" style="width: 45%;">
+					    	<label for="startDate" class="form-label">Data di inizio offerta</label>
+					    	<input type="date" class="form-control" id="startDate" name="startDate" th:field="*{HtmlStartDate}" placeholder="es. 2024-10-05">
+					    </div>
+					    
+					    
+						<!--/* Offer Expiration date */-->
+						<div th:if="${#fields.hasErrors('expirationDate')}">
+					  		<ul>
+					  	   		<li class="text-danger" th:each="err : ${#fields.errors('expirationDate')}" th:text="${err}"></li>
+					  		</ul>
+					    </div>
+						<div class="mb-3" style="width: 45%;">
+					    	<label for="expirationDate" class="form-label">Data di inizio offerta</label>
+					    	<input type="date" class="form-control" id="expirationDate" name="expirationDate" th:field="*{HtmlExpirationDate}" placeholder="es. 2025-10-05">
+					    </div>
+					    
+					</div>
+				    
+					<button type="submit" class="btn btn-success">Aggiungi</button>
+				</form>
+		 </div>
+	</div>
+</body>
+</html>

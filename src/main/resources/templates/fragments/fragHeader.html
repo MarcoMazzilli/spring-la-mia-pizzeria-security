@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<header th:fragment="header" class="mb-3">
+		<div class="container">
+				
+			<div class="row">
+				
+				<div class="col col-left col-4 py-1">
+					<a href="/">			
+						<img th:src="@{/image/logo-pizzeria.png}" alt="not-fount" class="logo">
+					</a>
+				</div>
+				<div class="col col-right col-8">
+					<form class="h-100 d-flex align-items-center justify-content-end" action="/">
+					  <div class="d-flex">
+					      <input type="text" name="pizzaName" class="form-control" placeholder="Cerca la tua pizza">
+						  <button type="submit" class="btn btn-primary mx-3">Cerca</button>
+					  </div>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+	</header>
+</body>
+</html>

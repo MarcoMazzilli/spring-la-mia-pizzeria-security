@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: head}"></head>
+<body>
+	
+	<header th:replace="~{fragments/fragHeader :: header}"></header>
+	<div class="container">
+		<div class="d-flex justify-content-between align-items-center">
+		<h1>Ingredienti</h1>
+		
+		<div class="wrap">
+			<a class="btn btn-success" th:href="@{create}">Aggiungi ingrediente</a>						
+		</div>
+		
+		</div>
+		
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">id</th>
+		      <th scope="col">name</th>
+		      <th scope="col"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="ingredient : ${ingredients}"]
+		    	th:object="${ingredient}">
+		      <th scope="row">[[*{id}]]</th>
+		      <td>[[*{name}]]</td>
+		      <td>
+				  <a class="btn btn-primary" th:href="@{update/{id}(id=*{id})}">Edit</a>
+				  <form
+				  method="post"
+				  th:action="@{/ingredient/delete/{id}(id=*{id})}">
+				  <button type="submit" class="btn btn-danger">Delete</button>
+					  
+				  </form>
+			  </td>
+	
+		    </tr>
+		  </tbody>
+		</table>
+		
+		
+	</div>
+
+</body>
+</html>

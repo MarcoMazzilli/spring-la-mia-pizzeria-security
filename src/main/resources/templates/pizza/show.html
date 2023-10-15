@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/head :: head}"></head>
+<body>
+	
+	<header th:replace="~{fragments/fragHeader :: header}"></header>
+
+	<div class="container d-flex justify-content-around py-5">
+		
+			
+		<div class="p-2 shadow" style="width: 50%;">
+			
+		<h3 class="py-3">Nome della pizza: [[${pizza.name}]]</h3>
+			
+		  <img class="card-img-top mvm-img" th:src="@{${pizza.photo}}" alt="Card image cap">
+		  
+		  <div class="card-body">
+			  
+		    <h5 class="card-title">[[${pizza.name}]]</h5>
+		    <p class="card-text">[[${pizza.description}]]</p>
+		    <ul>
+				<li th:each="ingredient : ${pizza.ingredients}">
+					[[${ingredient.name}]]
+				</li>
+			</ul>
+		    <a href="/" class="btn btn-primary">Back to home</a>
+		    
+		  </div>
+		  
+		</div>
+		
+		<div class="offerList p-2 shadow" style="width: 40%" >
+			<div class="py-3">
+				<a class="btn btn-success" th:href="@{/offer/create/{id}(id=${pizza.id})}">Crea una nuova offerta</a>
+				<p th:if="${pizza.getSpecialOffer.size() == 0}" class="text-danger shadow m-5 p-3 text-center">Non ci sono offerte da visualizzare !</p>			
+			</div>
+			<div th:each="offer : ${pizza.getSpecialOffer}" class="mb-3 p-3 border rounded-3">
+				<h5>[[${offer.title}]]</h5>
+				<ul class="mb-3">
+					<li>id dell'offerta [[${offer.id}]]</li>			
+					<li>Data di inizio offerta : [[${offer.StartDate}]]</li>			
+					<li>Data di fine offerta : [[${offer.ExpirationDate}]]</li>			
+					<li>Id della pizza : '[[${offer.pizza.id}]]'</li>		
+				</ul>
+				<a th:href="@{/offer/update/{offer_id}(offer_id=${offer.id})}" class="btn btn-primary">Modifica [[${offer.id}]]</a>
+				<form 
+				method="post" 
+				th:action="@{offer/delete/{offer_id}(offer_id=${offer.id})}"
+				style="display: inline;">
+					<button type="submit" class="btn btn-danger">Cancella offerta</button>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+</html>

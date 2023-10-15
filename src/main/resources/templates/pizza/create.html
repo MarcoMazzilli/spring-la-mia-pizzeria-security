@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{fragments/head :: head}"></head>
+
+<body>
+
+	<header th:replace="~{fragments/fragHeader :: header}"></header>
+	<div class="container">
+
+		<h1 th:if="${newPizza.id < 1}">Crea una pizza</h1>
+		<h1 th:if="${newPizza.id > 0}">Modifica la pizza '[[${newPizza.name}]]'</h1>
+
+		<form th:object="${newPizza}" method="post">
+			<row class="d-flex">
+				<div class="col col-5 wrapper-from-left p-3">
+
+					<div th:if="${#fields.hasErrors('name')}">
+						<ul>
+							<li class="text-danger" th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+						</ul>
+					</div>
+
+					<div class="mb-3">
+						<label for="name" class="form-label">Nome della pizza</label>
+						<input type="text" class="form-control" id="name" name="name" th:field="*{name}"
+							placeholder="Es. Margherita">
+					</div>
+
+
+					<div th:if="${#fields.hasErrors('price')}">
+						<ul>
+							<li class="text-danger" th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
+						</ul>
+					</div>
+
+					<div class="mb-3">
+						<label for="price" class="form-label">Prezzo</label>
+						<input type="number" max="99" step=".5" class="form-control" id="price" name="price"
+							th:field="*{price}">
+					</div>
+
+					<div th:if="${#fields.hasErrors('photo')}">
+						<ul>
+							<li class="text-danger" th:each="err : ${#fields.errors('photo')}" th:text="${err}"></li>
+						</ul>
+					</div>
+
+					<div class="mb-3">
+						<label for="photo" class="form-label">Url immagine</label>
+						<input type="text" class="form-control" id="photo" name="photo" th:field="*{photo}"
+							placeholder="Inserisci l'url di un immagine">
+					</div>
+
+				</div>
+
+				<div class="col wrapper-form-right p-3">
+
+					<div th:if="${#fields.hasErrors('description')}">
+						<ul>
+							<li class="text-danger" th:each="err : ${#fields.errors('description')}" th:text="${err}">
+							</li>
+						</ul>
+					</div>
+
+					<div class="mb-3">
+						<label for="description" class="form-label">Descrizione della pizza</label>
+						<textarea class="form-control" id="description" name="description" th:field="*{description}"
+							maxlength="255" placeholder="Inserisci una descrizione"></textarea>
+					</div>
+
+					<div class="mb-3">
+
+						<div class="wrapper-checkbox p-2 shadow m-2" 
+							 style="display: inline-block; cursor: pointer;"
+						     th:each="ingredient : ${ingredients}">
+
+							<input type="checkbox" th:id="${'ing' + ingredient.id}" th:value="${ingredient.id}" th:field="${newPizza.ingredients}">
+							<label th:for="${'ing' + ingredient.id}">[[${ingredient.name}]]</label>
+						</div>
+
+					</div>
+
+				</div>
+			</row>
+
+			<button type="submit" class="btn btn-primary">Crea pizza</button>
+		</form>
+	</div>
+
+	<!-- Bootstrap Bundle with Popper -->
+	<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>
