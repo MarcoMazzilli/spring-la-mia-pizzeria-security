@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import org.java.db.auth.pojo.Role;
+import org.java.db.auth.pojo.User;
+import org.java.db.auth.pojo.role.RoleService;
+import org.java.db.auth.pojo.user.service.UserService;
 import org.java.db.pojo.Ingredient;
 import org.java.db.pojo.Pizza;
 import org.java.db.pojo.SpecialOffer;
@@ -14,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
@@ -26,6 +31,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	
 	@Autowired
 	private IngredientService ingredientService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private UserService userService;
 
 
 	public static void main(String[] args) {
@@ -67,6 +78,20 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		
 		SpecialOffer sp2 = new SpecialOffer(LocalDate.now(), LocalDate.parse("2024-01-01"), "Offerta del mese",p1);
 		spService.save(sp2);
+		
+		String psw = new BCryptPasswordEncoder() .encode("password");
+		
+		Role admin = new Role("ADMIN");
+		Role user = new Role("User");
+		
+		roleService.save(admin);
+		roleService.save(user);
+		
+		User mvmAdmin = new User("Admin", psw, admin,user);
+		User mvmUser = new User("User", psw, user);
+		
+		userService.save(mvmAdmin);
+		userService.save(mvmUser);
 
 
 		System.out.println("Salvataggio dell'elemento andato a buon fine");
