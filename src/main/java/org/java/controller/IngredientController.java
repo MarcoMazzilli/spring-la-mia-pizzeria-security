@@ -35,7 +35,7 @@ public class IngredientController {
 	}
 	
 	// CREATE
-	@GetMapping("ingredient/create")
+	@GetMapping("admin/ingredient/create")
 	public String create(
 			Model model) {
 			
@@ -46,7 +46,7 @@ public class IngredientController {
 	}
 	
 	// STORE 
-	@PostMapping("ingredient/create")
+	@PostMapping("admin/ingredient/create")
 	public String store(
 			Model model,
 			@Valid @ModelAttribute Ingredient ingredient,
@@ -65,7 +65,7 @@ public class IngredientController {
 	}
 	
 	// UPDATE
-	@GetMapping("ingredient/update/{id}")
+	@GetMapping("admin/ingredient/update/{id}")
 	public String getUpdate(
 			@PathVariable int id,
 			Model model) {
@@ -75,7 +75,7 @@ public class IngredientController {
 		return "ingredient/create";
 	}
 	
-	@PostMapping("ingredient/update/{id}")
+	@PostMapping("admin/ingredient/update/{id}")
 	public String update(
 			@Valid @ModelAttribute ("newIngredient") Ingredient ingredient,
 			BindingResult bindingResult,
@@ -95,7 +95,7 @@ public class IngredientController {
 		return "redirect:/ingredient/index";
 	}
 	
-	@PostMapping("ingredient/delete/{id}")
+	@PostMapping("admin/ingredient/delete/{id}")
 	public String delete(
 			@PathVariable int id) {
 		

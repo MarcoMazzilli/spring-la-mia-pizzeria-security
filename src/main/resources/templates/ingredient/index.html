@@ -5,11 +5,14 @@
 	
 	<header th:replace="~{fragments/fragHeader :: header}"></header>
 	<div class="container">
+		<div class="container mb-3">
+			<h4>Logged as : <span sec:authentication="name"></span> </h4>
+	    </div>
 		<div class="d-flex justify-content-between align-items-center">
 		<h1>Ingredienti</h1>
 		
 		<div class="wrap">
-			<a class="btn btn-success" th:href="@{create}">Aggiungi ingrediente</a>						
+			<a class="btn btn-success" th:href="@{/admin/ingredient/create}">Aggiungi ingrediente</a>						
 		</div>
 		
 		</div>
@@ -28,10 +31,10 @@
 		      <th scope="row">[[*{id}]]</th>
 		      <td>[[*{name}]]</td>
 		      <td>
-				  <a class="btn btn-primary" th:href="@{update/{id}(id=*{id})}">Edit</a>
+				  <a class="btn btn-primary" th:href="@{/admin/ingredient/update/{id}(id=*{id})}">Edit</a>
 				  <form
 				  method="post"
-				  th:action="@{/ingredient/delete/{id}(id=*{id})}">
+				  th:action="@{/admin/ingredient/delete/{id}(id=*{id})}">
 				  <button type="submit" class="btn btn-danger">Delete</button>
 					  
 				  </form>
