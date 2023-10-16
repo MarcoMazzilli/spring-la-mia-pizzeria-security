@@ -5,7 +5,8 @@
 	
 	<header th:replace="~{fragments/fragHeader :: header}"></header>
 	
-	<div class="container mb-3">	
+	<div class="container mb-3">
+		<h4>Logged as : <span sec:authentication="name"></span> </h4>
 	</div>
 	
 	<div class="container">		
@@ -17,7 +18,7 @@
 		<h2>Tot risultati: [[${countPizze}]]</h2>
 		
 		<div>	
-			<a class="btn btn-primary" th:href="@{pizza/create}">Aggiungi pizza</a>
+			<a class="btn btn-primary" th:href="@{admin/pizza/create}">Aggiungi pizza</a>
 			<a class="btn btn-warning" th:href="@{ingredient/index}">Visualizza ingredienti</a>
 		</div>
 		
@@ -42,7 +43,7 @@
 	      <td>€ [[*{getFormattedPrice}]]</td>
 	      <td>
 			  <a class="btn btn-success" th:href="@{pizza/{id}(id=${pizza.id})}">Show</a>
-			  <a class="btn btn-primary" th:href="@{pizza/update/{id}(id=*{id})}">Edit</a>
+			  <a class="btn btn-primary" th:href="@{admin/pizza/update/{id}(id=*{id})}">Edit</a>
 			  <div style="display: inline;" th:insert="~{fragments/delete_modal :: deleteModal(${pizza},${pizza.id})}"></div>
 		  </td>
 

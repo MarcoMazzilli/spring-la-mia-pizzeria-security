@@ -58,7 +58,7 @@ public class ControllerMain {
 		return "pizza/show";
 	}
 
-	@GetMapping("pizza/create")
+	@GetMapping("admin/pizza/create")
 	public String create(Model model) {
 
 		model.addAttribute("newPizza" , new Pizza());
@@ -67,7 +67,7 @@ public class ControllerMain {
 	}
 
 
-	@PostMapping("pizza/create")
+	@PostMapping("/admin/pizza/create")
 	public String store(
 			@Valid @ModelAttribute ("newPizza") Pizza pizza,
 			BindingResult bindingResult,
@@ -87,7 +87,7 @@ public class ControllerMain {
 		return "redirect:/";
 	}
 	
-	@GetMapping("pizza/update/{id}")
+	@GetMapping("admin/pizza/update/{id}")
 	public String getUpdate(
 			@PathVariable int id,
 			Model model) {
@@ -99,7 +99,7 @@ public class ControllerMain {
 		return "pizza/create";
 	}
 	
-	@PostMapping("pizza/update/{id}")
+	@PostMapping("admin/pizza/update/{id}")
 	public String update(
 			@Valid @ModelAttribute ("newPizza") Pizza pizza,
 			BindingResult bindingResult,
@@ -120,7 +120,7 @@ public class ControllerMain {
 		
 	}
 	
-	@PostMapping("pizza/delete/{id}")
+	@PostMapping("admin/pizza/delete/{id}")
 	public String delete(@PathVariable int id) {
 		
 		Pizza pizzaToDelete = pizzaService.findById(id);
